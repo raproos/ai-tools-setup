@@ -107,6 +107,26 @@ Quick Setup (Windows):
   # Find token in: %USERPROFILE%\.openclaw\openclaw.json
 ```
 
+### 5. GitHub Copilot MCP (Official — Documented, Not Added)
+```
+Type: NPX MCP Server
+Package: @modelcontextprotocol/server-github
+Token: GitHub Personal Access Token (ghp_*)
+Status: 📋 Documented (not yet configured)
+Purpose: GitHub integration for Copilot + any MCP client
+Tools: 20+ tools (repos, issues, PRs, code search, files)
+
+Config (for Qwen Code settings.json):
+  "github-copilot": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-github"],
+    "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_*" }
+  }
+
+Config (for VS Code Copilot):
+  "github.copilot.chat.mcp.servers": { "github": { ... } }
+```
+
 ### 5. Sequential Thinking
 ```
 Type: Built-in MCP
@@ -221,20 +241,23 @@ C:\penduka\
 ## Status Summary
 
 ```
-Total MCP Servers: 13
-├─ Active: 12 (92%)
-├─ Pending: 1 (8%)
+Total MCP Servers: 14
+├─ Active: 12 (86%)
+├─ Pending: 1 (7%) — OpenClaw (needs gateway)
+├─ Documented: 1 (7%) — GitHub Copilot MCP (needs PAT)
 └─ Disabled: 0
 
 API Keys Status:
 ├─ Configured: 2 (Gemini, DeepSeek)
 ├─ Placeholder: 1 (OpenClaw)
+├─ Not Added: 1 (GitHub Copilot MCP — needs PAT)
 └─ Missing: 0
 
 Security Level: MEDIUM
 ⚠️ Gemini API key is hardcoded
 ⚠️ DeepSeek API key is hardcoded
 ✅ OpenClaw token is placeholder
+📋 GitHub PAT needed for Copilot MCP
 ```
 
 ## Next Steps
@@ -256,7 +279,13 @@ Security Level: MEDIUM
 7. Restart Qwen Code
 8. Test: `mcp__openclaw__openclaw_status`
 
-### Priority 2: Security Improvement (10 minutes)
+### Priority 2: Add GitHub Copilot MCP (5 minutes — Free)
+1. Get PAT: https://github.com/settings/tokens (scopes: `repo`, `read:user`, `workflow`)
+2. Add `github-copilot` entry to `settings.json` `mcpServers`
+3. Restart Qwen Code
+4. Test with any GitHub operation
+
+### Priority 3: Security Improvement (10 minutes)
 1. Move Gemini API key to environment variable
 2. Enable API key rotation
 3. Set up usage alerts

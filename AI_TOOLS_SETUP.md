@@ -465,6 +465,101 @@ echo %USERPROFILE%\.openclaw\openclaw.json
 
 ---
 
+### 2.5 GitHub Copilot MCP Server (Official)
+
+#### Configuration
+```json
+"github-copilot": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-github"],
+  "env": {
+    "GITHUB_PERSONAL_ACCESS_TOKEN": "your-token-here"
+  }
+}
+```
+
+#### Details
+- **Type**: NPX MCP Server
+- **Package**: `@modelcontextprotocol/server-github`
+- **Status**: ⚠️ Not yet configured (see below)
+- **Source**: Official GitHub open-source MCP server
+- **Cost**: **FREE** — requires GitHub Personal Access Token
+- **Compatibility**: Works with GitHub Copilot, Claude Desktop, Qwen Code, and any MCP client
+
+#### Capabilities
+| Tool | Description |
+|------|-------------|
+| `create_or_update_file` | Create or update a file in a repository |
+| `search_repositories` | Search for GitHub repositories |
+| `create_repository` | Create a new repository |
+| `get_file_contents` | Get file/directory contents |
+| `push_files` | Push multiple files in one commit |
+| `create_issue` | Create a new issue |
+| `create_pull_request` | Create a pull request |
+| `list_issues` | List and filter issues |
+| `list_commits` | Get commit history |
+| `list_pull_requests` | List and filter PRs |
+| `get_pull_request` | Get PR details |
+| `merge_pull_request` | Merge a PR |
+| `search_code` | Search code across GitHub |
+| `search_issues` | Search issues and PRs |
+| `search_users` | Search GitHub users |
+| `fork_repository` | Fork a repository |
+| `create_branch` | Create a new branch |
+| `get_pull_request_files` | Get files changed in a PR |
+| `get_pull_request_status` | Get PR status checks |
+| `get_pull_request_reviews` | Get PR reviews |
+
+#### Setup (Free — 5 minutes)
+
+**Step 1: Create GitHub Personal Access Token**
+1. Go to: https://github.com/settings/tokens
+2. Click **Generate new token (classic)**
+3. Give it a name (e.g., "MCP Server")
+4. Select scopes:
+   - ✅ `repo` (full control of private repositories)
+   - ✅ `read:user` (user profile)
+   - ✅ `workflow` (update GitHub Actions workflows)
+5. Click **Generate token** and copy it (starts with `ghp_`)
+
+**Step 2: Add to Qwen Code Settings**
+Open `C:\Users\Ruben\.qwen\settings.json` and add to `mcpServers`:
+```json
+"github-copilot": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-github"],
+  "env": {
+    "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your-token-here"
+  }
+}
+```
+
+**Step 3: Restart Qwen Code**
+
+**Step 4: Verify**
+Test the connection — you should see new `mcp__github-copilot__*` tools available.
+
+#### VS Code / Copilot Integration
+If you use GitHub Copilot in VS Code, you can also add it to VS Code settings:
+```json
+// .vscode/settings.json or VS Code settings
+{
+  "github.copilot.chat.mcp.servers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your-token"
+      }
+    }
+  }
+}
+```
+
+This lets Copilot chat interact with your GitHub repos directly.
+
+---
+
 ## 3. Other MCP Servers (Currently Active)
 
 ### 3.1 Filesystem MCP
@@ -766,13 +861,17 @@ Expected: Gemini API documentation results
 ✅ **Context7 MCP** - Library documentation
 ✅ **Sequential Thinking MCP** - Chain-of-thought reasoning
 
+### Configurable (Not Yet Added)
+📋 **GitHub Copilot MCP** - Official GitHub integration (needs PAT token)
+
 ### Requires Activation
 ⚠️ **OpenClaw MCP** - Needs gateway setup + token (FREE with Ollama)
 
 ### Total MCP Servers
-- **Configured**: 13 servers
+- **Configured in settings.json**: 13 servers
 - **Active**: 12 servers
 - **Pending**: 1 server (OpenClaw)
+- **Documented (not added)**: 1 server (GitHub Copilot MCP)
 
 ---
 

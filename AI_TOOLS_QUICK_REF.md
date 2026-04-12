@@ -8,15 +8,16 @@
 | 2 | Gemini AI | NPX | ✅ Active | gemini-2.0-flash |
 | 3 | DeepSeek | NPX | ✅ Active | sk-9b30ee1c... |
 | 4 | OpenClaw | NPX | ⚠️ Needs Setup | Gateway + token |
-| 5 | Filesystem | Built-in | ✅ Active | File operations |
-| 6 | GitHub | Built-in | ✅ Active | Repo management |
-| 7 | Git | Built-in | ✅ Active | Git commands |
-| 8 | Firecrawl | Built-in | ✅ Active | Web scraping |
-| 9 | Playwright | Built-in | ✅ Active | Browser automation |
-| 10 | Puppeteer | Built-in | ✅ Active | Browser automation |
-| 11 | Memory | Built-in | ✅ Active | Knowledge graph |
-| 12 | Context7 | Built-in | ✅ Active | Library docs |
-| 13 | Seq. Thinking | Built-in | ✅ Active | Chain of thought |
+| 5 | GitHub Copilot MCP | NPX | 📋 Documented | Needs PAT token |
+| 6 | Filesystem | Built-in | ✅ Active | File operations |
+| 7 | GitHub | Built-in | ✅ Active | Repo management |
+| 8 | Git | Built-in | ✅ Active | Git commands |
+| 9 | Firecrawl | Built-in | ✅ Active | Web scraping |
+| 10 | Playwright | Built-in | ✅ Active | Browser automation |
+| 11 | Puppeteer | Built-in | ✅ Active | Browser automation |
+| 12 | Memory | Built-in | ✅ Active | Knowledge graph |
+| 13 | Context7 | Built-in | ✅ Active | Library docs |
+| 14 | Seq. Thinking | Built-in | ✅ Active | Chain of thought |
 
 ---
 
@@ -81,6 +82,33 @@ openclaw doctor                    # Diagnostics
 openclaw dashboard                 # Open web UI in browser
 ```
 
+### GitHub Copilot MCP (5 minutes — Free, Needs PAT Token)
+
+**What it is:** Official GitHub MCP server — 20+ tools for repos, issues, PRs, code search
+
+**Setup:**
+1. Get PAT token: https://github.com/settings/tokens (scopes: `repo`, `read:user`, `workflow`)
+2. Add to `C:\Users\Ruben\.qwen\settings.json`:
+```json
+"github-copilot": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-github"],
+  "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your-token" }
+}
+```
+3. Restart Qwen Code
+
+**Also works in VS Code Copilot:**
+```json
+"github.copilot.chat.mcp.servers": {
+  "github": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-github"],
+    "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your-token" }
+  }
+}
+```
+
 ---
 
 ## Configuration File Locations
@@ -109,4 +137,4 @@ openclaw dashboard                 # Open web UI in browser
 ---
 
 **Updated**: April 12, 2026  
-**Total MCP Servers**: 13 (12 active, 1 needs setup)
+**Total MCP Servers**: 14 (12 active, 1 needs setup, 1 documented but not added)
