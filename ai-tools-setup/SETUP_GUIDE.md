@@ -130,12 +130,15 @@ qwen mcp add filesystem ...  # Add MCP server
 - **Command:** `gemini`
 - **Publisher:** Google
 - **Install:** `npm install -g @google/gemini-cli`
-- **Auth:** `gemini auth login`
-- **Requires:** `GOOGLE_API_KEY` env var
+- **Auth:** `gemini auth login` OR set `GEMINI_API_KEY` env var
+- **Requires:** `GEMINI_API_KEY` env var (for MCP server) or `GOOGLE_API_KEY` (for CLI)
+- **Get key:** https://aistudio.google.com/apikey (free)
 - **Usage:** Navigate to project, run `gemini`
 
 ```cmd
-set GOOGLE_API_KEY=your_key_here
+setx GEMINI_API_KEY AIzaSyA_your_key_here
+setx GOOGLE_API_KEY AIzaSyA_your_key_here
+:: Restart terminal for env vars to take effect
 cd C:\penduka\www\casino
 gemini
 > "Refactor the WebSocket handler for better error handling"
