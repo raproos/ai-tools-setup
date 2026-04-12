@@ -169,20 +169,22 @@ if "%SKIP_CRUSH%"=="1" (
 )
 
 :: ============================================================
-:: 4. OPENCODE CLI
+:: 5. OPENCODE CLI (Windows x64)
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
 echo  [6/23] Installing OpenCode CLI...
 echo ------------------------------------------------------------
-echo  OpenCode requires WSL or manual binary download on Windows.
-echo  See documentation for manual install steps.
-echo [INFO] Skipping automatic install (requires bash/curl)
-echo [INFO] Manual: Download from https://opencode.ai or use WSL:
-echo         curl -fsSL https://opencode.ai/install ^| bash
+call npm install -g opencode-windows-x64@latest > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] OpenCode CLI installed successfully
+    echo [INFO] Run with: opencode
+) else (
+    echo [FAIL] OpenCode installation failed. Check log.
+)
 
 :: ============================================================
-:: 5. PLANDEX CLI
+:: 6. PLANDEX CLI
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
@@ -823,7 +825,7 @@ echo   [2]  OpenAI Codex    - codex
 echo   [3]  Qwen Code       - qwen (THIS TOOL!)
 echo   [4]  Gemini CLI      - gemini
 echo   [5]  Crush           - crush
-echo   [6]  OpenCode        - opencode (manual install)
+echo   [6]  OpenCode        - opencode
 echo   [7]  Plandex         - plandex
 echo.
 echo   PLATFORMS:
@@ -842,8 +844,8 @@ echo.
 echo  LAUNCHER SCRIPTS:
 echo   - start-n8n.bat         - start-qwen.bat
 echo   - start-claude.bat      - start-gemini.bat
-echo   - start-codex.bat       - start-crush.bat (if Go)
-echo   - start-mcp-servers.bat (all MCP reference)
+echo   - start-codex.bat       - start-opencode.bat
+echo   - start-crush.bat (if Go) - start-mcp-servers.bat (all MCP reference)
 echo.
 echo  NEXT STEPS:
 echo   1. Copy .env.example to .env and add your API keys

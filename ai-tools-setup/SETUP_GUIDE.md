@@ -156,14 +156,10 @@ crush
 
 ### 5. OpenCode CLI
 - **Command:** `opencode`
-- **Publisher:** Anomaly
-- **Install:** Manual (Windows needs binary download)
-  - Download from: https://github.com/anomalyco/opencode/releases
-  - Place binary in `%GOPATH%\bin` or add to PATH
-- **WSL Alternative:**
-  ```bash
-  curl -fsSL https://opencode.ai/install | bash
-  ```
+- **Publisher:** OpenCode AI
+- **Install:** `npm install -g opencode-windows-x64@latest`
+- **Version:** 1.4.3+
+- **Usage:** Navigate to project, run `opencode`
 
 ### 6. Plandex CLI
 - **Command:** `plandex`
