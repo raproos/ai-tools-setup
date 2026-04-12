@@ -18,7 +18,7 @@ Complete setup guide for all free open-source AI coding tools, MCP servers, and 
    - [Plandex](#6-plandex-cli)
 4. [Platforms](#platforms)
    - [n8n](#7-n8n-workflow-automation)
-5. [MCP Servers (11 Total)](#mcp-servers)
+5. [MCP Servers (14 Total)](#mcp-servers)
 6. [AI Services](#ai-services)
    - [CleverHumanizer](#cleverhumanizer-integration)
    - [OpenRouter/Nemotron](#openrouter--nemotron-3-super)
@@ -257,6 +257,80 @@ All MCP servers are configured in:
 - **Purpose:** Google Gemini API access through MCP
 - **Requires:** `GOOGLE_API_KEY` env var
 - **Get key:** https://aistudio.google.com/apikey
+
+### 12. Gemini Audit MCP Server
+- **Type:** HTTP MCP Server
+- **URL:** `https://gemini-api-docs-mcp.dev`
+- **Purpose:** Search the official Gemini API and Google GenAI SDK documentation
+- **Features:** Find methods, parameters, and usage examples for Google GenAI SDKs (Python, TypeScript, Go, Java, Kotlin)
+- **Usage:** Ask questions like "how to generate text with gemini-2.5-flash" or "function calling with Google GenAI SDK"
+- **Requires:** No API key needed (remote HTTP service)
+
+### 13. DeepSeek MCP Server (FREE via OpenRouter)
+- **Package:** `deepseek-mcp-server`
+- **Purpose:** DeepSeek R1 reasoning model access through MCP — completely FREE via OpenRouter
+- **Run:** `npx -y deepseek-mcp-server`
+- **Requires:** `OPENROUTER_API_KEY` env var (free to sign up)
+- **Model:** `deepseek/deepseek-r1:free` (no cost, no rate limits on free tier)
+- **Get key:** https://openrouter.ai/keys (sign up → create key → copy)
+- **Features:**
+  - DeepSeek R1 reasoning model — on par with OpenAI o1
+  - Chain-of-thought reasoning output
+  - Code generation, analysis, and debugging
+  - Math and logic problem solving
+  - Completely free — no per-token charges
+- **Configuration:**
+  ```json
+  {
+    "deepseek": {
+      "command": "npx",
+      "args": ["-y", "deepseek-mcp-server"],
+      "env": {
+        "DEEPSEEK_API_KEY": "sk-or-v1-your_openrouter_key",
+        "DEEPSEEK_BASE_URL": "https://openrouter.ai/api/v1",
+        "DEEPSEEK_MODEL": "deepseek/deepseek-r1:free"
+      }
+    }
+  }
+  ```
+- **Alternative Models on OpenRouter:**
+  - `deepseek/deepseek-chat:free` — DeepSeek V3 (chat/completion)
+  - `deepseek/deepseek-r1-distill-llama-70b:free` — Distilled Llama version
+- **Note:** Also available via browser SDK at https://js.puter.com/v2/ (no key needed, client-side only)
+
+### 14. OpenClaw MCP Server
+- **Package:** `openclaw-mcp`
+- **Purpose:** Bridge between MCP clients and a self-hosted OpenClaw AI assistant
+- **Run:** `npx -y openclaw-mcp`
+- **Requires:** Running OpenClaw gateway server
+- **Features:**
+  - OAuth 2.1 authentication support
+  - SSE transport mode for remote connections
+  - Multi-instance gateway routing
+  - Rate limiting support
+- **Configuration:**
+  ```json
+  {
+    "openclaw": {
+      "command": "npx",
+      "args": ["-y", "openclaw-mcp"],
+      "env": {
+        "OPENCLAW_URL": "http://127.0.0.1:18789",
+        "OPENCLAW_GATEWAY_TOKEN": "your_gateway_token_here",
+        "OPENCLAW_MODEL": "default",
+        "OPENCLAW_TIMEOUT_MS": "300000"
+      }
+    }
+  }
+  ```
+- **Starting OpenClaw Gateway:**
+  ```cmd
+  # Install OpenClaw
+  npm install -g openclaw
+
+  # Start gateway
+  openclaw gateway --port 18789
+  ```
 
 ### Running MCP Servers
 
