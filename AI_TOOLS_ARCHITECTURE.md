@@ -84,8 +84,8 @@ Tools: chat, vision, code_gen
 ```
 Type: NPX MCP Server
 Package: deepseek-mcp-server
-API Key: sk-PLACEHOLDER_REPLACE_WITH_YOUR_KEY
-Status: ⚠️ PENDING (Needs API key)
+API Key: sk-9b30ee1cab9e4680b654abff1c73fdcd
+Status: ✅ ACTIVE
 Purpose: Alternative AI model
 Tools: chat_completion, completion, list_models, get_user_balance
 ```
@@ -95,10 +95,16 @@ Tools: chat_completion, completion, list_models, get_user_balance
 Type: NPX MCP Server
 Package: openclaw-mcp
 Gateway: http://127.0.0.1:18789
-Token: PLACEHOLDER_REPLACE_WITH_YOUR_TOKEN
-Status: ⚠️ PENDING (Needs gateway + token)
+Token: Auto-generated in ~/.openclaw/openclaw.json
+Status: ⚠️ PENDING (Needs gateway setup)
 Purpose: Autonomous AI agent
 Tools: chat, chat_async, status, task_*, instances
+
+Quick Setup (Windows):
+  npm install -g openclaw@latest
+  openclaw onboard --install-daemon
+  openclaw gateway run --port 18789
+  # Find token in: %USERPROFILE%\.openclaw\openclaw.json
 ```
 
 ### 5. Sequential Thinking
@@ -216,38 +222,41 @@ C:\penduka\
 
 ```
 Total MCP Servers: 13
-├─ Active: 11 (85%)
-├─ Pending: 2 (15%)
+├─ Active: 12 (92%)
+├─ Pending: 1 (8%)
 └─ Disabled: 0
 
 API Keys Status:
-├─ Configured: 1 (Gemini)
-├─ Placeholder: 2 (DeepSeek, OpenClaw)
+├─ Configured: 2 (Gemini, DeepSeek)
+├─ Placeholder: 1 (OpenClaw)
 └─ Missing: 0
 
 Security Level: MEDIUM
 ⚠️ Gemini API key is hardcoded
-✅ DeepSeek key is placeholder
+⚠️ DeepSeek API key is hardcoded
 ✅ OpenClaw token is placeholder
 ```
 
 ## Next Steps
 
-### Priority 1: Activate DeepSeek (5 minutes)
-1. Get API key from https://platform.deepseek.com/
-2. Update settings.json
-3. Restart Qwen Code
-4. Test with `mcp__deepseek__list_models`
+### ~~Priority 1: Activate DeepSeek~~ ✅ DONE
+- API key configured: `sk-9b30ee1cab9e4680b654abff1c73fdcd`
+- Restart Qwen Code to activate
+- Test with `mcp__deepseek__list_models`
 
-### Priority 2: Activate OpenClaw (15 minutes)
-1. Install OpenClaw gateway
-2. Start gateway on port 18789
-3. Get auth token
-4. Update settings.json
-5. Restart Qwen Code
-6. Test with `mcp__openclaw__openclaw_status`
+### Priority 1: Activate OpenClaw (20 minutes — Free)
 
-### Priority 3: Security Improvement (10 minutes)
+**Step-by-step:**
+1. Install: `npm install -g openclaw@latest`
+2. Onboard: `openclaw onboard --install-daemon` (choose Ollama for free)
+3. Install local LLM: `ollama pull qwen2.5` (from ollama.com)
+4. Start gateway: `openclaw gateway run --port 18789`
+5. Get token: Open `%USERPROFILE%\.openclaw\openclaw.json` → `gateway.auth.token`
+6. Update `C:\Users\Ruben\.qwen\settings.json` with the token
+7. Restart Qwen Code
+8. Test: `mcp__openclaw__openclaw_status`
+
+### Priority 2: Security Improvement (10 minutes)
 1. Move Gemini API key to environment variable
 2. Enable API key rotation
 3. Set up usage alerts

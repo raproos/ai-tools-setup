@@ -217,6 +217,7 @@ The development environment includes 13 MCP (Model Context Protocol) servers:
 **Active AI Tools:**
 - ✅ **Gemini API** - Google Gemini documentation search (`mcp__gemini-audit__search_docs`)
 - ✅ **Gemini AI** - Chat, vision, code generation (`gemini-2.0-flash` model)
+- ✅ **DeepSeek MCP** - Chat, completion, code generation (5M free tokens)
 - ✅ **Filesystem MCP** - File operations and directory management
 - ✅ **GitHub MCP** - Repository, issue, and PR management
 - ✅ **Git MCP** - Local Git operations (commit, branch, diff, log)
@@ -228,7 +229,6 @@ The development environment includes 13 MCP (Model Context Protocol) servers:
 - ✅ **Sequential Thinking MCP** - Chain-of-thought problem solving
 
 **Pending Activation:**
-- ⚠️ **DeepSeek MCP** - Requires API key replacement (see `AI_TOOLS_SETUP.md`)
 - ⚠️ **OpenClaw MCP** - Requires gateway setup and token (see `AI_TOOLS_SETUP.md`)
 
 ### Configuration Files
@@ -238,11 +238,12 @@ The development environment includes 13 MCP (Model Context Protocol) servers:
 
 ### Security Notes
 - Gemini API key is currently hardcoded in settings.json (medium risk)
-- DeepSeek and OpenClaw use placeholder keys (safe, but need activation)
+- DeepSeek API key is configured (medium risk)
+- OpenClaw uses placeholder token (safe, needs activation)
 - See `AI_TOOLS_SETUP.md` Section 6 for security best practices
 
 ---
 
 **Last Updated**: April 12, 2026
 **Status**: Active Development - PTM Games Fully Working
-**AI Tools**: 12/13 MCP servers active (see AI_TOOLS_SETUP.md)
+**AI Tools**: 12/13 MCP servers active (DeepSeek configured, see AI_TOOLS_SETUP.md)

@@ -6,7 +6,7 @@
 |---|--------|------|--------|-------|
 | 1 | Gemini Audit | HTTP | ✅ Active | API docs search |
 | 2 | Gemini AI | NPX | ✅ Active | gemini-2.0-flash |
-| 3 | DeepSeek | NPX | ⚠️ Needs API Key | Get from deepseek.com |
+| 3 | DeepSeek | NPX | ✅ Active | sk-9b30ee1c... |
 | 4 | OpenClaw | NPX | ⚠️ Needs Setup | Gateway + token |
 | 5 | Filesystem | Built-in | ✅ Active | File operations |
 | 6 | GitHub | Built-in | ✅ Active | Repo management |
@@ -28,38 +28,58 @@ Use tool: mcp__gemini-audit__search_docs
 Query: "chat completion"
 ```
 
-### Test DeepSeek (Needs API Key)
+### Test DeepSeek (Active)
 ```
 Use tool: mcp__deepseek__list_models
-Expected: Error until API key added
+Expected: List of available DeepSeek models
 ```
 
-### Test OpenClaw (Needs Setup)
+### Test OpenClaw (Needs Gateway)
 ```
 Use tool: mcp__openclaw__openclaw_status
-Expected: Error until gateway running
+Expected: Gateway status and health info (after setup)
 ```
 
 ---
 
 ## Activation Checklist
 
-### DeepSeek (5 minutes)
-- [ ] Get API key from https://platform.deepseek.com/
-- [ ] Open `C:\Users\Ruben\.qwen\settings.json`
-- [ ] Replace `sk-PLACEHOLDER_REPLACE_WITH_YOUR_KEY`
-- [ ] Restart Qwen Code
-- [ ] Test: `mcp__deepseek__list_models`
+### ~~DeepSeek~~ ✅ DONE
+- [x] Get API key from https://platform.deepseek.com/
+- [x] Update `C:\Users\Ruben\.qwen\settings.json`
+- [x] Key: `sk-9b30ee1cab9e4680b654abff1c73fdcd`
+- [x] Restart Qwen Code
+- [x] Test: `mcp__deepseek__list_models`
 
-### OpenClaw (15 minutes)
-- [ ] Install: `npm install -g openclaw`
-- [ ] Configure gateway
-- [ ] Start gateway: `openclaw start --port 18789`
-- [ ] Get auth token from gateway logs
-- [ ] Open `C:\Users\Ruben\.qwen\settings.json`
-- [ ] Replace `PLACEHOLDER_REPLACE_WITH_YOUR_TOKEN`
-- [ ] Restart Qwen Code
-- [ ] Test: `mcp__openclaw__openclaw_status`
+### OpenClaw (20 minutes — Free with Ollama)
+
+**Quick Setup (Windows PowerShell):**
+```powershell
+npm install -g openclaw@latest         # Install OpenClaw
+openclaw onboard --install-daemon       # Wizard (choose Ollama for free)
+ollama pull qwen2.5                     # Local LLM model
+openclaw gateway run --port 18789       # Start gateway
+```
+
+**Find Token:** Open `%USERPROFILE%\.openclaw\openclaw.json` → `gateway.auth.token`
+
+**Connect to Qwen Code:**
+- Open `C:\Users\Ruben\.qwen\settings.json`
+- Replace `PLACEHOLDER_REPLACE_WITH_YOUR_TOKEN` with actual token
+- Restart Qwen Code
+
+**Verify:**
+```
+mcp__openclaw__openclaw_status    # Should show gateway info
+mcp__openclaw__openclaw_chat      # Send "hello"
+```
+
+**Useful Commands:**
+```powershell
+openclaw gateway start/stop/restart/status
+openclaw doctor                    # Diagnostics
+openclaw dashboard                 # Open web UI in browser
+```
 
 ---
 
@@ -76,16 +96,17 @@ Expected: Error until gateway running
 
 ## Security Alert ⚠️
 
-**Gemini API Key is hardcoded in settings.json**
-- Key: `AIzaSyAFRvB6slX4ycpI59Wjl2q3FlhigxgRaN0`
+**API Keys Hardcoded in settings.json**
+- Gemini: `AIzaSyAFRvB6slX4ycpI59Wjl2q3FlhigxgRaN0`
+- DeepSeek: `sk-9b30ee1cab9e4680b654abff1c73fdcd`
 - Risk: Medium (visible in plain text)
-- Action: Consider moving to environment variable
+- Action: Consider moving to environment variables
 
-**DeepSeek & OpenClaw keys are placeholders**
-- Status: Safe (no real keys exposed)
-- Action: Replace with real keys when ready to use
+**OpenClaw token is placeholder**
+- Status: Safe (no real key exposed)
+- Action: Set up gateway when ready
 
 ---
 
 **Updated**: April 12, 2026  
-**Total MCP Servers**: 13 (12 active, 2 need activation)
+**Total MCP Servers**: 13 (12 active, 1 needs setup)
