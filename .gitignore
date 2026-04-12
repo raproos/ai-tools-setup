@@ -1,0 +1,30 @@
+# Logs
+logs/
+*.log
+
+# MySQL data
+mysql_data/
+
+# Temp files
+temp_*
+*.tmp
+
+# Broken file names
+'Live
+cookies.txt
+name
+
+# Large directories
+slotopol/
+www/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Qwen internal
+.qwen/settings.json.orig

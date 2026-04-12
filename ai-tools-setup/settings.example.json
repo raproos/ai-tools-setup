@@ -1,0 +1,185 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php *)",
+      "Bash(node *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(git *)",
+      "Bash(composer *)",
+      "Bash(mysql *)",
+      "Bash(curl *)",
+      "Bash(powershell *)",
+      "Bash(netstat *)",
+      "Bash(taskkill *)",
+      "Bash(timeout *)",
+      "Bash(start *)",
+      "Bash(mkdir *)",
+      "Bash(copy *)",
+      "Bash(xcopy *)",
+      "WebSearch",
+      "WebFetch(*)"
+    ]
+  },
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ghp_YOUR_GITHUB_CLASSIC_PAT_HERE"
+      },
+      "disabled": false,
+      "note": "GitHub classic PAT configured. Has access to all repositories."
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\your-project-path"
+      ],
+      "disabled": false,
+      "note": "File system access for your project"
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "disabled": false,
+      "note": "Persistent local memory using JSON knowledge graph"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "disabled": false,
+      "note": "Structured reasoning for complex problem solving"
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "disabled": false,
+      "note": "Real-time, version-specific documentation and code examples"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "disabled": false,
+      "note": "Browser automation for testing, screenshots, JS execution"
+    },
+    "duckduckgo": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@mcp/duckduckgo"
+      ],
+      "disabled": false,
+      "note": "Privacy-focused web search (no API key required)"
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-YOUR_FIRECRAWL_API_KEY_HERE"
+      },
+      "disabled": false,
+      "note": "Web scraping to Markdown."
+    },
+    "gemini": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/mcp-server-gemini"
+      ],
+      "env": {
+        "GEMINI_API_KEY": "AIzaSyA_YOUR_GEMINI_API_KEY_HERE",
+        "GOOGLE_GEMINI_MODEL": "gemini-2.0-flash"
+      },
+      "disabled": false,
+      "note": "Google Gemini AI MCP."
+    },
+    "gemini-audit": {
+      "httpUrl": "https://gemini-api-docs-mcp.dev",
+      "disabled": false,
+      "note": "Search Gemini API documentation"
+    },
+    "git": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-git"
+      ],
+      "disabled": false,
+      "note": "Local Git operations"
+    },
+    "github-official": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_YOUR_GITHUB_PAT_HERE"
+      },
+      "disabled": false,
+      "note": "Official GitHub MCP server."
+    },
+    "github-extended": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@hannahjse/github-mcp"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "ghp_YOUR_GITHUB_PAT_HERE"
+      },
+      "disabled": false,
+      "note": "Extended GitHub MCP."
+    },
+    "github-anthropic": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/mcp-server-github"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "ghp_YOUR_GITHUB_PAT_HERE"
+      },
+      "disabled": false,
+      "note": "Anthropic's GitHub MCP server."
+    },
+    "deepseek": {
+      "command": "npx",
+      "args": ["-y", "deepseek-mcp-server"],
+      "env": {
+        "DEEPSEEK_API_KEY": "sk-YOUR_DEEPSEEK_API_KEY_HERE"
+      },
+      "disabled": false,
+      "note": "DeepSeek AI MCP server. Get key from platform.deepseek.com"
+    },
+    "openclaw": {
+      "command": "npx",
+      "args": ["-y", "openclaw-mcp"],
+      "env": {
+        "OPENCLAW_URL": "http://127.0.0.1:18789",
+        "OPENCLAW_GATEWAY_TOKEN": "YOUR_OPENCLAW_GATEWAY_TOKEN_HERE",
+        "OPENCLAW_MODEL": "default",
+        "OPENCLAW_TIMEOUT_MS": "300000"
+      },
+      "disabled": false,
+      "note": "OpenClaw MCP server. Requires running OpenClaw gateway."
+    }
+  },
+  "$version": 3
+}
