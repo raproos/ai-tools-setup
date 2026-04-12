@@ -95,16 +95,23 @@ Tools: chat_completion, completion, list_models, get_user_balance
 Type: NPX MCP Server
 Package: openclaw-mcp
 Gateway: http://127.0.0.1:18789
-Token: Auto-generated in ~/.openclaw/openclaw.json
-Status: ⚠️ PENDING (Needs gateway setup)
+Token: Auto-generated in ~/.openclaw/openclaw.json (inside WSL2)
+Status: ⚠️ PENDING (Needs WSL2 + gateway setup)
 Purpose: Autonomous AI agent
 Tools: chat, chat_async, status, task_*, instances
 
-Quick Setup (Windows):
+⚠️ IMPORTANT: Not supported on native Windows. Requires WSL2.
+
+Quick Setup (Windows + WSL2):
+  # PowerShell (Admin) — one time:
+  wsl --install && restart PC
+
+  # Inside WSL2 Ubuntu:
   npm install -g openclaw@latest
   openclaw onboard --install-daemon
   openclaw gateway run --port 18789
-  # Find token in: %USERPROFILE%\.openclaw\openclaw.json
+  # Find token: cat ~/.openclaw/openclaw.json → gateway.auth.token
+  # WSL2 auto-forwards port 18789 to Windows
 ```
 
 ### 5. GitHub Copilot MCP (Official — Documented, Not Added)

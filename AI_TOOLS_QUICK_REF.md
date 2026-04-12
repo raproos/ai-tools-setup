@@ -52,22 +52,40 @@ Expected: Gateway status and health info (after setup)
 - [x] Restart Qwen Code
 - [x] Test: `mcp__deepseek__list_models`
 
-### OpenClaw (20 minutes — Free with Ollama)
+### OpenClaw (30 minutes — Free with WSL2 + Ollama)
 
-**Quick Setup (Windows PowerShell):**
-```powershell
-npm install -g openclaw@latest         # Install OpenClaw
-openclaw onboard --install-daemon       # Wizard (choose Ollama for free)
-ollama pull qwen2.5                     # Local LLM model
-openclaw gateway run --port 18789       # Start gateway
+**⚠️ Requires WSL2 on Windows — native Windows NOT supported**
+
+**Quick Setup (Inside WSL2 Ubuntu terminal):**
+```bash
+# 1. Install (inside WSL2)
+npm install -g openclaw@latest
+
+# 2. Onboard (choose Ollama for free)
+openclaw onboard --install-daemon
+
+# 3. Install local LLM (optional, for free setup)
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull qwen2.5
+
+# 4. Start gateway
+openclaw gateway run --port 18789
+
+# 5. Find token
+cat ~/.openclaw/openclaw.json  # Look for gateway.auth.token
 ```
 
-**Find Token:** Open `%USERPROFILE%\.openclaw\openclaw.json` → `gateway.auth.token`
+**WSL2 Setup (PowerShell Admin — one time only):**
+```powershell
+wsl --install    # Enables WSL2, installs Ubuntu
+# Restart PC after this
+```
 
 **Connect to Qwen Code:**
-- Open `C:\Users\Ruben\.qwen\settings.json`
+- Open `C:\Users\Ruben\.qwen\settings.json` (on Windows)
 - Replace `PLACEHOLDER_REPLACE_WITH_YOUR_TOKEN` with actual token
 - Restart Qwen Code
+- WSL2 auto-forwards port 18789 to Windows
 
 **Verify:**
 ```
@@ -75,11 +93,11 @@ mcp__openclaw__openclaw_status    # Should show gateway info
 mcp__openclaw__openclaw_chat      # Send "hello"
 ```
 
-**Useful Commands:**
-```powershell
+**Useful Commands (inside WSL2):**
+```bash
 openclaw gateway start/stop/restart/status
 openclaw doctor                    # Diagnostics
-openclaw dashboard                 # Open web UI in browser
+openclaw dashboard                 # Opens web UI
 ```
 
 ### GitHub Copilot MCP (5 minutes — Free, Needs PAT Token)

@@ -205,39 +205,75 @@ MCP servers are configured in: `C:\Users\Ruben\.qwen\settings.json` under the `m
 
 ---
 
-#### Complete Windows Setup Guide (Free — 20 minutes)
+#### Complete Windows Setup Guide (Free — 30 minutes)
+
+**⚠️ IMPORTANT: OpenClaw does NOT support native Windows.**
+You **must** use **WSL2** (Windows Subsystem for Linux). This is a hard requirement — the official OpenClaw docs confirm native Windows is not supported.
 
 **Prerequisites:**
-- Node.js v22 or higher
-- PowerShell (Admin rights for some steps)
-- An AI model provider (Ollama for local, or free cloud API)
+- **WSL2** (required on Windows)
+- **Node.js v22+** (inside WSL2)
+- **PowerShell** (Admin, for WSL2 install)
+- An AI model provider (Ollama for local/free, or cloud API)
 
 ---
 
-**Step 1: Install OpenClaw (Native PowerShell)**
+**Step 1: Install WSL2 (Windows Only — Skip on macOS/Linux)**
 
+Open PowerShell as **Administrator**:
 ```powershell
-# Install OpenClaw globally (run as Admin if needed)
+# Enable WSL2 and install Ubuntu
+wsl --install
+
+# Restart your computer when prompted
+```
+
+After restart, Ubuntu will launch. Create a username and password.
+
+**Verify WSL2 is running:**
+```powershell
+wsl --status
+wsl -l -v    # Should show "Running" for Ubuntu
+```
+
+---
+
+**Step 2: Install Node.js Inside WSL2**
+
+Open your WSL2 Ubuntu terminal:
+```bash
+# Install Node.js 22
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# Verify
+node --version    # Should show v22.x.x
+npm --version
+```
+
+---
+
+**Step 3: Install OpenClaw (Inside WSL2)**
+
+```bash
+# Install OpenClaw globally
 npm install -g openclaw@latest
 
 # Verify installation
 openclaw --version
 ```
 
-If you get permission errors, fix them:
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-npm config set prefix "C:\npm"
-npm config set cache "C:\npm-cache"
-[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\npm", "User")
+If `openclaw` command not found:
+```bash
+export PATH="$(npm config get prefix)/bin:$PATH"
+# Add this to ~/.bashrc to make permanent
 ```
-Then restart PowerShell.
 
 ---
 
-**Step 2: Run Onboarding Wizard**
+**Step 4: Run Onboarding Wizard (Inside WSL2)**
 
-```powershell
+```bash
 openclaw onboard --install-daemon
 ```
 
@@ -245,42 +281,41 @@ This interactive wizard will ask you:
 
 | Prompt | What to Choose | Notes |
 |--------|---------------|-------|
-| **LLM Provider** | `ollama` (free/local) or `openai`/`anthropic`/`google` | For zero cost, choose **Ollama** |
+| **LLM Provider** | `ollama` (free/local) or `anthropic`/`openai`/`openrouter` | For zero cost, choose **Ollama** |
 | **API Key** | Leave blank for Ollama, or paste cloud API key | Cloud keys from provider dashboards |
 | **Model** | `llama3.2` or `qwen2.5` (Ollama) or provider default | Good coding model: `qwen2.5` |
 | **Gateway Port** | Accept default `18789` | This is what Qwen Code expects |
 | **Channels** | Skip for now (Telegram, Discord optional) | Not needed for MCP |
 | **Install as Service** | Yes (recommended) | Auto-starts on boot |
 
-The wizard generates config at: `%USERPROFILE%\.openclaw\openclaw.json`
+The wizard generates config at: `~/.openclaw/openclaw.json` (inside WSL2)
 
 ---
 
-**Step 3: Install Local LLM (Ollama) — Free Option**
+**Step 5: Install Local LLM (Ollama) — Free Option**
 
 If you chose Ollama as your LLM provider:
 
-```powershell
-# 1. Download and install Ollama
-# Visit: https://ollama.com/
-# Run the Windows installer
+```bash
+# 1. Install Ollama (inside WSL2)
+curl -fsSL https://ollama.com/install.sh | sh
 
-# 2. Pull a model (run after Ollama is running)
-ollama pull qwen2.5       # Good for coding (3.5GB)
+# 2. Pull a model
+ollama pull qwen2.5       # Good for coding (~3.5GB)
 # OR
-ollama pull llama3.2      # General purpose (2GB)
+ollama pull llama3.2      # General purpose (~2GB)
 
 # 3. Verify model is loaded
 ollama list
 ```
 
-Ollama runs automatically as a Windows service on `http://localhost:11434`.
+Ollama runs on `http://localhost:11434` inside WSL2.
 
 ---
 
-**Step 4: Start the Gateway**
+**Step 6: Start the Gateway (Inside WSL2)**
 
-```powershell
+```bash
 # Start gateway on port 18789
 openclaw gateway run --port 18789
 
@@ -291,8 +326,10 @@ openclaw gateway enable    # Auto-start on boot
 
 The gateway will be available at: `http://127.0.0.1:18789`
 
+WSL2 automatically forwards port 18789 to Windows, so you can access it from your Windows browser.
+
 **Gateway Management Commands:**
-```powershell
+```bash
 openclaw gateway start      # Start gateway
 openclaw gateway stop       # Stop gateway
 openclaw gateway restart    # Restart gateway
@@ -304,13 +341,15 @@ openclaw doctor             # Run diagnostics
 
 ---
 
-**Step 5: Find the Gateway Token**
+**Step 7: Find the Gateway Token (Inside WSL2)**
 
 The token is auto-generated during onboarding. Find it here:
 
-1. **Open the config file:**
-   ```powershell
-   notepad %USERPROFILE%\.openclaw\openclaw.json
+1. **Open the config file (inside WSL2):**
+   ```bash
+   cat ~/.openclaw/openclaw.json
+   # Or edit it:
+   nano ~/.openclaw/openclaw.json
    ```
 
 2. **Look for the gateway token section:**
@@ -326,20 +365,22 @@ The token is auto-generated during onboarding. Find it here:
 
 3. **Copy the token value** — this is your `OPENCLAW_GATEWAY_TOKEN`
 
-Alternatively, get the token via command:
-```powershell
+Alternatively, generate a fresh token:
+```bash
 openclaw doctor --generate-gateway-token
 ```
 
 ---
 
-**Step 6: Verify Gateway is Running**
+**Step 8: Verify Gateway is Running**
 
-```powershell
-# Open browser to dashboard
-start http://127.0.0.1:18789/?token=YOUR_TOKEN_HERE
+From Windows browser (WSL2 port forwarding works automatically):
+```
+http://127.0.0.1:18789/?token=YOUR_TOKEN_HERE
+```
 
-# Or use the built-in command
+Or from WSL2 terminal:
+```bash
 openclaw dashboard
 ```
 
@@ -347,19 +388,19 @@ You should see the OpenClaw web dashboard with chat interface.
 
 ---
 
-**Step 7: Connect to Qwen Code**
+**Step 9: Connect to Qwen Code**
 
-Open `C:\Users\Ruben\.qwen\settings.json` and replace:
+Open `C:\Users\Ruben\.qwen\settings.json` (on Windows) and replace:
 ```json
 "OPENCLAW_GATEWAY_TOKEN": "PLACEHOLDER_REPLACE_WITH_YOUR_TOKEN"
 ```
-With your actual token from Step 5.
+With your actual token from Step 7.
 
 Then **restart Qwen Code** to load the new configuration.
 
 ---
 
-**Step 8: Verify Connection**
+**Step 10: Verify Connection**
 
 After restarting Qwen Code, test the connection:
 ```
@@ -392,19 +433,20 @@ Configure these during `openclaw onboard` by selecting the provider and pasting 
 
 ---
 
-#### Required Setup Summary
+#### Required Setup Summary (Windows — Requires WSL2)
 
-| # | Step | Command / Action |
-|---|------|-----------------|
-| 1 | Install Node.js v22+ | Download from nodejs.org |
-| 2 | Install OpenClaw | `npm install -g openclaw@latest` |
-| 3 | Install LLM (Ollama) | Download from ollama.com + `ollama pull qwen2.5` |
-| 4 | Run onboarding | `openclaw onboard --install-daemon` |
-| 5 | Start gateway | `openclaw gateway run --port 18789` |
-| 6 | Get token | Open `%USERPROFILE%\.openclaw\openclaw.json` → `gateway.auth.token` |
-| 7 | Update settings | Replace token in `C:\Users\Ruben\.qwen\settings.json` |
-| 8 | Restart Qwen Code | Close and reopen |
-| 9 | Test connection | `mcp__openclaw__openclaw_status` |
+| # | Step | Command / Action | Where |
+|---|------|-----------------|-------|
+| 1 | Enable WSL2 | `wsl --install` (PowerShell Admin) | Windows |
+| 2 | Install Node.js v22 | `curl ... nodesource ...` | Inside WSL2 |
+| 3 | Install OpenClaw | `npm install -g openclaw@latest` | Inside WSL2 |
+| 4 | Install Ollama (optional) | `curl ... ollama.com/install.sh \| sh` | Inside WSL2 |
+| 5 | Run onboarding | `openclaw onboard --install-daemon` | Inside WSL2 |
+| 6 | Start gateway | `openclaw gateway run --port 18789` | Inside WSL2 |
+| 7 | Get token | `cat ~/.openclaw/openclaw.json` → `gateway.auth.token` | Inside WSL2 |
+| 8 | Update settings | Replace token in `C:\Users\Ruben\.qwen\settings.json` | Windows |
+| 9 | Restart Qwen Code | Close and reopen | Windows |
+| 10 | Test connection | `mcp__openclaw__openclaw_status` | Qwen Code |
 
 ---
 
