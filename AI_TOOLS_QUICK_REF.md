@@ -7,8 +7,8 @@
 | 1 | Gemini Audit | HTTP | ✅ Active | API docs search |
 | 2 | Gemini AI | NPX | ✅ Active | gemini-2.0-flash |
 | 3 | DeepSeek | NPX | ✅ Active | sk-9b30ee1c... |
-| 4 | OpenClaw | NPX | ⚠️ Needs Setup | Gateway + token |
-| 5 | GitHub Copilot MCP | NPX | 📋 Documented | Needs PAT token |
+| 4 | GitHub Copilot MCP | NPX | ✅ Active | raproos authenticated |
+| 5 | OpenClaw | NPX | ⚠️ Needs Setup | Gateway + token |
 | 6 | Filesystem | Built-in | ✅ Active | File operations |
 | 7 | GitHub | Built-in | ✅ Active | Repo management |
 | 8 | Git | Built-in | ✅ Active | Git commands |
