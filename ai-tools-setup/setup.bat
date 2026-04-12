@@ -1,32 +1,42 @@
 @echo off
-title AI CLI Tools Setup
+title AI CLI Tools - Complete Setup
 color 0A
 
 echo.
 echo ============================================================
-echo          AI CLI TOOLS - COMPLETE SETUP SCRIPT
+echo       AI CLI TOOLS + MCP SERVERS - COMPLETE SETUP
 echo ============================================================
 echo.
-echo  This script will install and configure:
-echo   [1] Claude Code CLI (Anthropic)
-echo   [2] OpenAI Codex CLI
-echo   [3] Qwen Code CLI (this tool!)
-echo   [4] Crush CLI (charmbracelet)
-echo   [5] OpenCode CLI
-echo   [6] Plandex CLI
-echo   [7] n8n Workflow Automation
-echo   [8] Context7 MCP Server
-echo   [9] Filesystem MCP Server
-echo   [10] Git MCP Server
-echo   [11] CleverHumanizer.ai Integration
-echo   [12] OpenRouter + Nemotron 3 Super (Code Generation)
+echo  AI CODING CLI TOOLS:
+echo   [1]  Claude Code CLI      (Anthropic)
+echo   [2]  OpenAI Codex CLI
+echo   [3]  Qwen Code CLI        (this tool!)
+echo   [4]  Gemini CLI           (Google)
+echo   [5]  Crush CLI            (charmbracelet)
+echo   [6]  OpenCode CLI
+echo   [7]  Plandex CLI
 echo.
-echo  Prerequisites needed:
-echo   - Node.js v22+  (npm)
-echo   - Go 1.21+      (for Crush)
-echo   - Git
+echo  PLATFORMS ^+ AUTOMATION:
+echo   [8]  n8n Workflow Automation
+echo   [9]  Dify AI Platform
 echo.
-echo ============================================================
+echo  MCP SERVERS:
+echo   [10] Context7              (documentation)
+echo   [11] Filesystem            (file read/write)
+echo   [12] Git                   (git operations)
+echo   [13] Puppeteer             (browser automation)
+echo   [14] Playwright            (browser automation)
+echo   [15] Brave Search          (web search)
+echo   [16] Fetch                 (HTTP requests)
+echo   [17] Firecrawl             (web scraping)
+echo   [18] GitHub                (repo management)
+echo   [19] SQLite                (database queries)
+echo   [20] Gemini                (Google Gemini API)
+echo.
+echo  AI SERVICES:
+echo   [21] CleverHumanizer.ai    (text humanizer)
+echo   [22] OpenRouter+Nemotron   (code generation)
+echo   [23] Ollama                (local LLMs)
 echo.
 
 :: Check prerequisites
@@ -113,7 +123,7 @@ if %errorlevel% equ 0 (
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [3/12] Installing Qwen Code CLI...
+echo  [3/23] Installing Qwen Code CLI...
 echo ------------------------------------------------------------
 call npm install -g @qwen-code/qwen-code@latest > "%LOGFILE%" 2>&1
 if %errorlevel% equ 0 (
@@ -125,11 +135,27 @@ if %errorlevel% equ 0 (
 )
 
 :: ============================================================
-:: 4. CRUSH CLI (charmbracelet)
+:: 4. GEMINI CLI (Google)
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [4/12] Installing Crush CLI...
+echo  [4/23] Installing Google Gemini CLI...
+echo ------------------------------------------------------------
+call npm install -g @google/gemini-cli > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] Gemini CLI installed successfully
+    echo [INFO] Run with: gemini
+    echo [INFO] Set GOOGLE_API_KEY env var first
+) else (
+    echo [FAIL] Gemini CLI installation failed. Check log.
+)
+
+:: ============================================================
+:: 5. CRUSH CLI (charmbracelet)
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [5/23] Installing Crush CLI...
 echo ------------------------------------------------------------
 if "%SKIP_CRUSH%"=="1" (
     echo [SKIP] Go not installed. Skipping Crush.
@@ -147,7 +173,7 @@ if "%SKIP_CRUSH%"=="1" (
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [5/12] Installing OpenCode CLI...
+echo  [6/23] Installing OpenCode CLI...
 echo ------------------------------------------------------------
 echo  OpenCode requires WSL or manual binary download on Windows.
 echo  See documentation for manual install steps.
@@ -160,7 +186,7 @@ echo         curl -fsSL https://opencode.ai/install ^| bash
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [6/12] Installing Plandex CLI...
+echo  [7/23] Installing Plandex CLI...
 echo ------------------------------------------------------------
 call go install github.com/plandex-ai/plandex@latest >> "%LOGFILE%" 2>&1
 if %errorlevel% equ 0 (
@@ -175,7 +201,7 @@ if %errorlevel% equ 0 (
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [7/12] Installing n8n Workflow Automation...
+echo  [8/23] Installing n8n Workflow Automation...
 echo ------------------------------------------------------------
 call npm install -g n8n > "%LOGFILE%" 2>&1
 if %errorlevel% equ 0 (
@@ -191,7 +217,7 @@ if %errorlevel% equ 0 (
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [8/12] Installing Context7 MCP Server...
+echo  [10/23] Installing Context7 MCP Server...
 echo ------------------------------------------------------------
 call npm install -g @upstash/context7-mcp > "%LOGFILE%" 2>&1
 if %errorlevel% equ 0 (
@@ -206,7 +232,7 @@ if %errorlevel% equ 0 (
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [9/12] Installing Filesystem MCP Server...
+echo  [11/23] Installing Filesystem MCP Server...
 echo ------------------------------------------------------------
 call npm install -g @modelcontextprotocol/server-filesystem > "%LOGFILE%" 2>&1
 if %errorlevel% equ 0 (
@@ -221,7 +247,7 @@ if %errorlevel% equ 0 (
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [10/12] Installing Git MCP Server...
+echo  [12/23] Installing Git MCP Server...
 echo ------------------------------------------------------------
 if "%SKIP_GIT_MCP%"=="1" (
     echo [SKIP] Git not installed. Skipping Git MCP.
@@ -236,11 +262,131 @@ if "%SKIP_GIT_MCP%"=="1" (
 )
 
 :: ============================================================
-:: 10. SETUP CONFIGURATION FILES
+:: 10. PUPPETEER MCP SERVER (Browser Automation)
 :: ============================================================
 echo.
 echo ------------------------------------------------------------
-echo  [11/12] Setting up configuration files...
+echo  [13/23] Installing Puppeteer MCP Server...
+echo ------------------------------------------------------------
+call npm install -g @modelcontextprotocol/server-puppeteer > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] Puppeteer MCP Server installed successfully
+    echo [INFO] Run with: npx @modelcontextprotocol/server-puppeteer
+) else (
+    echo [FAIL] Puppeteer MCP installation failed. Check log.
+)
+
+:: ============================================================
+:: 11. PLAYWRIGHT MCP SERVER (Browser Automation)
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [14/23] Installing Playwright MCP Server...
+echo ------------------------------------------------------------
+call npm install -g @playwright/mcp > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] Playwright MCP Server installed successfully
+    echo [INFO] Run with: npx @playwright/mcp
+) else (
+    echo [FAIL] Playwright MCP installation failed. Check log.
+)
+
+:: ============================================================
+:: 12. BRAVE SEARCH MCP SERVER
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [15/23] Installing Brave Search MCP Server...
+echo ------------------------------------------------------------
+call npm install -g @modelcontextprotocol/server-brave-search > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] Brave Search MCP Server installed successfully
+    echo [INFO] Requires BRAVE_API_KEY env var
+) else (
+    echo [FAIL] Brave Search MCP installation failed. Check log.
+)
+
+:: ============================================================
+:: 13. FETCH MCP SERVER (HTTP Requests)
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [16/23] Installing Fetch MCP Server...
+echo ------------------------------------------------------------
+call npm install -g @modelcontextprotocol/server-fetch > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] Fetch MCP Server installed successfully
+    echo [INFO] Run with: npx @modelcontextprotocol/server-fetch
+) else (
+    echo [FAIL] Fetch MCP installation failed. Check log.
+)
+
+:: ============================================================
+:: 14. FIRECRAWL MCP SERVER (Web Scraping)
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [17/23] Installing Firecrawl MCP Server...
+echo ------------------------------------------------------------
+call npm install -g firecrawl-mcp > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] Firecrawl MCP Server installed successfully
+    echo [INFO] Requires FIRECRAWL_API_KEY env var (or self-hosted)
+) else (
+    echo [FAIL] Firecrawl MCP installation failed. Check log.
+)
+
+:: ============================================================
+:: 15. GITHUB MCP SERVER
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [18/23] Installing GitHub MCP Server...
+echo ------------------------------------------------------------
+call npm install -g @modelcontextprotocol/server-github > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] GitHub MCP Server installed successfully
+    echo [INFO] Requires GITHUB_TOKEN env var
+) else (
+    echo [FAIL] GitHub MCP installation failed. Check log.
+)
+
+:: ============================================================
+:: 17. SQLITE MCP SERVER (Database Queries)
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [19/23] Installing SQLite MCP Server...
+echo ------------------------------------------------------------
+call npm install -g @modelcontextprotocol/server-sqlite > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] SQLite MCP Server installed successfully
+    echo [INFO] Run with: npx @modelcontextprotocol/server-sqlite
+) else (
+    echo [FAIL] SQLite MCP installation failed. Check log.
+)
+
+:: ============================================================
+:: 18. GEMINI MCP SERVER
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [20/23] Installing Gemini MCP Server...
+echo ------------------------------------------------------------
+call npm install -g gemini-mcp-tool > "%LOGFILE%" 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] Gemini MCP Server installed successfully
+    echo [INFO] Requires GOOGLE_API_KEY env var
+) else (
+    echo [FAIL] Gemini MCP installation failed. Check log.
+)
+
+:: ============================================================
+:: 19. SETUP CONFIGURATION FILES
+:: ============================================================
+echo.
+echo ------------------------------------------------------------
+echo  [21/23] Setting up configuration files...
 echo ------------------------------------------------------------
 
 :: Create config directory
@@ -249,13 +395,35 @@ if not exist "%USERPROFILE%\.ai-tools" mkdir "%USERPROFILE%\.ai-tools"
 :: Create MCP config
 echo { > "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo   "mcpServers": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     "context7": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "command": "npx", >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "args": ["-y", "@upstash/context7-mcp"] >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     }, >> "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo     "filesystem": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo       "command": "npx", >> "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo       "args": ["-y", "@modelcontextprotocol/server-filesystem", "%USERPROFILE%"] >> "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo     }, >> "%USERPROFILE%\.ai-tools\mcp_config.json"
-echo     "context7": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     "git": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo       "command": "npx", >> "%USERPROFILE%\.ai-tools\mcp_config.json"
-echo       "args": ["-y", "@upstash/context7-mcp"] >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "args": ["-y", "@modelcontextprotocol/server-git"] >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     }, >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     "puppeteer": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "command": "npx", >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "args": ["-y", "@modelcontextprotocol/server-puppeteer"] >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     }, >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     "brave-search": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "command": "npx", >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "args": ["-y", "@modelcontextprotocol/server-brave-search"], >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "env": { "BRAVE_API_KEY": "your_key_here" } >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     }, >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     "fetch": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "command": "npx", >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "args": ["-y", "@modelcontextprotocol/server-fetch"] >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     }, >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo     "github": { >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "command": "npx", >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "args": ["-y", "@modelcontextprotocol/server-github"], >> "%USERPROFILE%\.ai-tools\mcp_config.json"
+echo       "env": { "GITHUB_TOKEN": "your_token_here" } >> "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo     } >> "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo   } >> "%USERPROFILE%\.ai-tools\mcp_config.json"
 echo } >> "%USERPROFILE%\.ai-tools\mcp_config.json"
@@ -482,15 +650,37 @@ echo [OK] OpenRouter PHP wrapper created (Nemotron 3 Super 120B)
 
 :: Create .env template
 echo.
-echo CLEVER_HUMANIZER_API_KEY=your_api_key_here > "%~dp0.env.example"
+echo # ============================================ > "%~dp0.env.example"
+echo # AI CLI TOOLS - Environment Configuration >> "%~dp0.env.example"
+echo # ============================================ >> "%~dp0.env.example"
+echo. >> "%~dp0.env.example"
+echo # CleverHumanizer.ai - Text Humanization >> "%~dp0.env.example"
+echo CLEVER_HUMANIZER_API_KEY=your_api_key_here >> "%~dp0.env.example"
+echo. >> "%~dp0.env.example"
+echo # OpenRouter - Code Generation (Nemotron 3 Super 120B) >> "%~dp0.env.example"
 echo OPENROUTER_API_KEY=sk-or-v1-your_key_here >> "%~dp0.env.example"
 echo SITE_URL=http://localhost >> "%~dp0.env.example"
 echo SITE_NAME=Penduka AI Tools >> "%~dp0.env.example"
 echo. >> "%~dp0.env.example"
+echo # Google Gemini - Gemini CLI + MCP >> "%~dp0.env.example"
+echo GOOGLE_API_KEY=AIza-your_key_here >> "%~dp0.env.example"
+echo. >> "%~dp0.env.example"
+echo # Brave Search MCP >> "%~dp0.env.example"
+echo BRAVE_API_KEY=your_key_here >> "%~dp0.env.example"
+echo. >> "%~dp0.env.example"
+echo # Firecrawl MCP - Web Scraping >> "%~dp0.env.example"
+echo FIRECRAWL_API_KEY=fc-your_key_here >> "%~dp0.env.example"
+echo. >> "%~dp0.env.example"
+echo # GitHub MCP Server >> "%~dp0.env.example"
+echo GITHUB_TOKEN=ghp_your_token_here >> "%~dp0.env.example"
+echo. >> "%~dp0.env.example"
 echo # Get your API keys from: >> "%~dp0.env.example"
-echo # - CleverHumanizer: https://cleverhumanizer.ai/profile >> "%~dp0env.example"
-echo # - OpenRouter: https://openrouter.ai/keys >> "%~dp0.env.example"
-echo # Nemotron 3 Super model: https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b >> "%~dp0.env.example"
+echo # - CleverHumanizer:  https://cleverhumanizer.ai/profile >> "%~dp0.env.example"
+echo # - OpenRouter:       https://openrouter.ai/keys >> "%~dp0.env.example"
+echo # - Google Gemini:    https://aistudio.google.com/apikey >> "%~dp0.env.example"
+echo # - Brave Search:     https://brave.com/search/api >> "%~dp0.env.example"
+echo # - Firecrawl:        https://www.firecrawl.dev >> "%~dp0.env.example"
+echo # - GitHub:           https://github.com/settings/tokens >> "%~dp0.env.example"
 echo [OK] .env.example template created
 
 :: Create launcher scripts
@@ -574,22 +764,48 @@ echo echo. >> "%~dp0start-qwen.bat"
 echo qwen %%* >> "%~dp0start-qwen.bat"
 echo [OK] start-qwen.bat created
 
+:: Gemini launcher
+echo @echo off > "%~dp0start-gemini.bat"
+echo title Google Gemini CLI >> "%~dp0start-gemini.bat"
+echo color 0B >> "%~dp0start-gemini.bat"
+echo cd /d "%%~dp0" >> "%~dp0start-gemini.bat"
+echo echo. >> "%~dp0start-gemini.bat"
+echo echo ============================================================ >> "%~dp0start-gemini.bat"
+echo echo   Starting Google Gemini CLI... >> "%~dp0start-gemini.bat"
+echo echo ============================================================ >> "%~dp0start-gemini.bat"
+echo echo. >> "%~dp0start-gemini.bat"
+echo echo Set GOOGLE_API_KEY first, then run: gemini >> "%~dp0start-gemini.bat"
+echo echo. >> "%~dp0start-gemini.bat"
+echo gemini %%* >> "%~dp0start-gemini.bat"
+echo [OK] start-gemini.bat created
+
 :: MCP Servers launcher
 echo @echo off > "%~dp0start-mcp-servers.bat"
 echo title MCP Servers Status >> "%~dp0start-mcp-servers.bat"
 echo color 0F >> "%~dp0start-mcp-servers.bat"
 echo echo. >> "%~dp0start-mcp-servers.bat"
 echo echo ============================================================ >> "%~dp0start-mcp-servers.bat"
-echo echo   MCP Servers Status >> "%~dp0start-mcp-servers.bat"
+echo echo   MCP Servers - Status Quick Reference >> "%~dp0start-mcp-servers.bat"
 echo echo ============================================================ >> "%~dp0start-mcp-servers.bat"
 echo echo. >> "%~dp0start-mcp-servers.bat"
-echo echo Installed MCP Servers: >> "%~dp0start-mcp-servers.bat"
+echo echo INSTALLED MCP SERVERS: >> "%~dp0start-mcp-servers.bat"
 echo echo. >> "%~dp0start-mcp-servers.bat"
-echo echo 1. Context7 MCP:     npx @upstash/context7-mcp >> "%~dp0start-mcp-servers.bat"
-echo echo 2. Filesystem MCP:   npx @modelcontextprotocol/server-filesystem >> "%~dp0start-mcp-servers.bat"
-echo echo 3. Git MCP:          npx @modelcontextprotocol/server-git >> "%~dp0start-mcp-servers.bat"
+echo echo  1. Context7        npx @upstash/context7-mcp >> "%~dp0start-mcp-servers.bat"
+echo echo  2. Filesystem      npx @modelcontextprotocol/server-filesystem >> "%~dp0start-mcp-servers.bat"
+echo echo  3. Git             npx @modelcontextprotocol/server-git >> "%~dp0start-mcp-servers.bat"
+echo echo  4. Puppeteer       npx @modelcontextprotocol/server-puppeteer >> "%~dp0start-mcp-servers.bat"
+echo echo  5. Playwright      npx @playwright/mcp >> "%~dp0start-mcp-servers.bat"
+echo echo  6. Brave Search    npx @modelcontextprotocol/server-brave-search >> "%~dp0start-mcp-servers.bat"
+echo echo  7. Fetch           npx @modelcontextprotocol/server-fetch >> "%~dp0start-mcp-servers.bat"
+echo echo  8. Firecrawl       npx firecrawl-mcp >> "%~dp0start-mcp-servers.bat"
+echo echo  9. GitHub          npx @modelcontextprotocol/server-github >> "%~dp0start-mcp-servers.bat"
+echo echo  10. SQLite         npx @modelcontextprotocol/server-sqlite >> "%~dp0start-mcp-servers.bat"
+echo echo  11. Gemini MCP     npx gemini-mcp-tool >> "%~dp0start-mcp-servers.bat"
 echo echo. >> "%~dp0start-mcp-servers.bat"
-echo echo Config file: %%USERPROFILE%%\.ai-tools\mcp_config.json >> "%~dp0start-mcp-servers.bat"
+echo echo REQUIRED API KEYS: >> "%~dp0start-mcp-servers.bat"
+echo echo   BRAVE_API_KEY, FIRECRAWL_API_KEY, GITHUB_TOKEN, GOOGLE_API_KEY >> "%~dp0start-mcp-servers.bat"
+echo echo. >> "%~dp0start-mcp-servers.bat"
+echo echo Config: %%USERPROFILE%%\.ai-tools\mcp_config.json >> "%~dp0start-mcp-servers.bat"
 echo echo. >> "%~dp0start-mcp-servers.bat"
 echo pause >> "%~dp0start-mcp-servers.bat"
 echo [OK] start-mcp-servers.bat created
@@ -599,35 +815,42 @@ echo ============================================================
 echo  SETUP COMPLETE!
 echo ============================================================
 echo.
-echo  Installed tools:
-echo   [1] Claude Code     - claude
-echo   [2] OpenAI Codex    - codex
-echo   [3] Qwen Code       - qwen (THIS TOOL!)
-echo   [4] Crush           - crush
-echo   [5] OpenCode        - opencode (manual install needed)
-echo   [6] Plandex         - plandex
-echo   [7] n8n             - n8n
-echo   [8] Context7 MCP    - npx @upstash/context7-mcp
-echo   [9] Filesystem MCP  - npx @modelcontextprotocol/server-filesystem
-echo   [10] Git MCP         - npx @modelcontextprotocol/server-git
-echo   [11] CleverHumanizer - PHP wrapper created
-echo   [12] OpenRouter      - PHP wrapper (Nemotron 3 Super 120B)
+echo  INSTALLED TOOLS:
 echo.
-echo  Launcher scripts created:
-echo   - start-n8n.bat         (n8n server)
-echo   - start-claude.bat      (Claude Code)
-echo   - start-codex.bat       (OpenAI Codex)
-echo   - start-qwen.bat        (Qwen Code CLI)
-if "%SKIP_CRUSH%"=="0" echo   - start-crush.bat         (Crush AI)
-echo   - start-mcp-servers.bat (MCP status)
+echo   AI CODING CLI:
+echo   [1]  Claude Code     - claude
+echo   [2]  OpenAI Codex    - codex
+echo   [3]  Qwen Code       - qwen (THIS TOOL!)
+echo   [4]  Gemini CLI      - gemini
+echo   [5]  Crush           - crush
+echo   [6]  OpenCode        - opencode (manual install)
+echo   [7]  Plandex         - plandex
 echo.
-echo  Next steps:
-echo   1. Set your API keys in .env (CleverHumanizer, OpenRouter)
-echo   2. Run 'claude login' to authenticate Claude
-echo   3. Run 'codex login' to authenticate OpenAI
-echo   4. Run start-n8n.bat to start n8n server
-echo   5. Run start-qwen.bat to use this tool locally
-echo   6. See SETUP_GUIDE.md for full documentation
+echo   PLATFORMS:
+echo   [8]  n8n             - n8n (http://localhost:5678)
+echo.
+echo   MCP SERVERS (11):
+echo   [9]  Context7         [10] Filesystem     [11] Git
+echo   [12] Puppeteer        [13] Playwright      [14] Brave Search
+echo   [15] Fetch            [16] Firecrawl       [17] GitHub
+echo   [18] SQLite           [19] Gemini MCP
+echo.
+echo   AI SERVICES:
+echo   [20] CleverHumanizer  - PHP wrapper
+echo   [21] OpenRouter       - PHP wrapper (Nemotron 3 Super 120B)
+echo.
+echo  LAUNCHER SCRIPTS:
+echo   - start-n8n.bat         - start-qwen.bat
+echo   - start-claude.bat      - start-gemini.bat
+echo   - start-codex.bat       - start-crush.bat (if Go)
+echo   - start-mcp-servers.bat (all MCP reference)
+echo.
+echo  NEXT STEPS:
+echo   1. Copy .env.example to .env and add your API keys
+echo   2. Run: claude login / codex login / gemini auth login
+echo   3. Run start-n8n.bat for workflow automation
+echo   4. Run start-mcp-servers.bat for MCP reference
+echo   5. See SETUP_GUIDE.md for full documentation
 echo.
 echo ============================================================
 echo.

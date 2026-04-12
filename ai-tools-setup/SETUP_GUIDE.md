@@ -1,4 +1,4 @@
-# AI CLI Tools - Setup Guide
+# AI CLI Tools + MCP Servers - Setup Guide
 
 Complete setup guide for all free open-source AI coding tools, MCP servers, and integrations.
 
@@ -8,10 +8,21 @@ Complete setup guide for all free open-source AI coding tools, MCP servers, and 
 
 1. [Prerequisites](#prerequisites)
 2. [Quick Start](#quick-start)
-3. [Installed Tools](#installed-tools)
-4. [MCP Servers](#mcp-servers)
-5. [CleverHumanizer Integration](#cleverhumanizer-integration)
-6. [Tool Usage](#tool-usage)
+3. [AI Coding CLI Tools](#ai-coding-cli-tools)
+   - [Claude Code](#1-claude-code-cli)
+   - [OpenAI Codex](#2-openai-codex-cli)
+   - [Qwen Code](#3-qwen-code-cli)
+   - [Gemini CLI](#4-gemini-cli)
+   - [Crush](#5-crush-cli-charmbracelet)
+   - [OpenCode](#6-opencode-cli)
+   - [Plandex](#6-plandex-cli)
+4. [Platforms](#platforms)
+   - [n8n](#7-n8n-workflow-automation)
+5. [MCP Servers (11 Total)](#mcp-servers)
+6. [AI Services](#ai-services)
+   - [CleverHumanizer](#cleverhumanizer-integration)
+   - [OpenRouter/Nemotron](#openrouter--nemotron-3-super)
+   - [Ollama](#ollama-local-llms)
 7. [Configuration](#configuration)
 8. [Troubleshooting](#troubleshooting)
 
@@ -115,7 +126,22 @@ qwen mcp list       # List configured MCP servers
 qwen mcp add filesystem ...  # Add MCP server
 ```
 
-### 4. Crush CLI (charmbracelet)
+### 4. Gemini CLI
+- **Command:** `gemini`
+- **Publisher:** Google
+- **Install:** `npm install -g @google/gemini-cli`
+- **Auth:** `gemini auth login`
+- **Requires:** `GOOGLE_API_KEY` env var
+- **Usage:** Navigate to project, run `gemini`
+
+```cmd
+set GOOGLE_API_KEY=your_key_here
+cd C:\penduka\www\casino
+gemini
+> "Refactor the WebSocket handler for better error handling"
+```
+
+### 5. Crush CLI (charmbracelet)
 - **Command:** `crush`
 - **Publisher:** Charm
 - **Install:** `go install github.com/charmbracelet/crush@latest`
@@ -182,31 +208,59 @@ All MCP servers are configured in:
 - **Purpose:** Pulls latest, version-specific documentation into AI prompts
 - **Run:** `npx -y @upstash/context7-mcp`
 
-**Example use in Claude Code:**
-```
-> @context7 Show me the latest Laravel routing documentation
-```
-
 ### 2. Filesystem MCP Server
 - **Package:** `@modelcontextprotocol/server-filesystem`
 - **Purpose:** Secure file read/write/search for AI agents
-- **Run:** `npx -y @modelcontextprotocol/server-filesystem <allowed-paths>`
-
-**Example use:**
-```
-> @filesystem Read the file C:\penduka\www\casino\app\Http\Controllers\Web\Frontend\GamesController.php
-```
+- **Run:** `npx -y @modelcontextprotocol/server-filesystem <path>`
 
 ### 3. Git MCP Server
 - **Package:** `@modelcontextprotocol/server-git`
-- **Purpose:** Git operations through AI (status, diff, commit, branch)
+- **Purpose:** Git operations (status, diff, commit, branch)
 - **Run:** `npx -y @modelcontextprotocol/server-git`
 
-**Example use:**
-```
-> @git Show me the diff of uncommitted changes
-> @git Create a new branch called "ptm-fix"
-```
+### 4. Puppeteer MCP Server
+- **Package:** `@modelcontextprotocol/server-puppeteer`
+- **Purpose:** Browser automation, screenshots, web interaction
+- **Run:** `npx -y @modelcontextprotocol/server-puppeteer`
+
+### 5. Playwright MCP Server
+- **Package:** `@playwright/mcp`
+- **Purpose:** Browser automation via Playwright
+- **Run:** `npx -y @playwright/mcp`
+
+### 6. Brave Search MCP Server
+- **Package:** `@modelcontextprotocol/server-brave-search`
+- **Purpose:** Web search via Brave Search API
+- **Requires:** `BRAVE_API_KEY` env var
+- **Get key:** https://brave.com/search/api
+
+### 7. Fetch MCP Server
+- **Package:** `@modelcontextprotocol/server-fetch`
+- **Purpose:** HTTP requests, web content fetching
+- **Run:** `npx -y @modelcontextprotocol/server-fetch`
+
+### 8. Firecrawl MCP Server
+- **Package:** `firecrawl-mcp`
+- **Purpose:** AI-powered web scraping, site crawling, content extraction
+- **Requires:** `FIRECRAWL_API_KEY` env var (or self-hosted)
+- **Get key:** https://www.firecrawl.dev
+
+### 9. GitHub MCP Server
+- **Package:** `@modelcontextprotocol/server-github`
+- **Purpose:** Repository management, PRs, issues, file operations
+- **Requires:** `GITHUB_TOKEN` env var
+- **Get token:** https://github.com/settings/tokens
+
+### 10. SQLite MCP Server
+- **Package:** `@modelcontextprotocol/server-sqlite`
+- **Purpose:** Database queries on SQLite files
+- **Run:** `npx -y @modelcontextprotocol/server-sqlite <db-path>`
+
+### 11. Gemini MCP Server
+- **Package:** `gemini-mcp-tool`
+- **Purpose:** Google Gemini API access through MCP
+- **Requires:** `GOOGLE_API_KEY` env var
+- **Get key:** https://aistudio.google.com/apikey
 
 ### Running MCP Servers
 
