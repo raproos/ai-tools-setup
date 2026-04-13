@@ -603,6 +603,78 @@ This lets Copilot chat interact with your GitHub repos directly.
 
 ---
 
+### 2.6 Claude Sonnet 4.6 MCP Server (Anthropic)
+
+#### Configuration
+```json
+"claude": {
+  "command": "npx",
+  "args": ["-y", "@anthropic/mcp-server"],
+  "env": {
+    "ANTHROPIC_API_KEY": "sk-ant-api03-PLACEHOLDER_REPLACE_WITH_YOUR_KEY",
+    "ANTHROPIC_MODEL": "claude-sonnet-4-20250514"
+  },
+  "disabled": false,
+  "note": "Claude Sonnet 4.6 MCP — code generation, reasoning, analysis"
+}
+```
+
+#### Details
+- **Type**: NPX MCP Server
+- **Package**: `@anthropic/mcp-server`
+- **Model**: `claude-sonnet-4-20250514` (Sonnet 4.6)
+- **Status**: ✅ **CONFIGURED & READY**
+- **API Key**: ✅ Configured (starts with `sk-ant-api03-Sg_yFmgc...`)
+- **Cost**: Paid — requires Anthropic API key
+- **Capabilities**:
+  - Advanced code generation and refactoring
+  - Complex reasoning and analysis
+  - Natural language to code
+  - Multi-step problem solving
+  - Architecture design
+
+#### Setup (Paid — 5 minutes)
+
+**Step 1: Get Anthropic API Key**
+1. Go to: https://console.anthropic.com/
+2. Sign up or log in
+3. Navigate to **API Keys**
+4. Create a new API key (starts with `sk-ant-api03-`)
+5. Copy the key
+
+**Step 2: Add to Qwen Code Settings**
+Open `C:\Users\Ruben\.qwen\settings.json` and update the `claude` entry:
+```json
+"claude": {
+  "command": "npx",
+  "args": ["-y", "@anthropic/mcp-server"],
+  "env": {
+    "ANTHROPIC_API_KEY": "sk-ant-api03-your-actual-key-here",
+    "ANTHROPIC_MODEL": "claude-sonnet-4-20250514"
+  }
+}
+```
+
+**Step 3: Restart Qwen Code**
+
+**Step 4: Verify**
+Test the connection — you should see new `mcp__claude__*` tools available.
+
+#### Available Models
+| Model | ID | Best For |
+|-------|----|----------|
+| Claude Sonnet 4.6 | `claude-sonnet-4-20250514` | Best balance of speed/capability |
+| Claude Opus 4.6 | `claude-opus-4-20250514` | Maximum capability, slower |
+| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | Fast, cheap, simple tasks |
+
+#### Environment Variables
+| Variable | Value | Description |
+|----------|-------|-------------|
+| `ANTHROPIC_API_KEY` | `sk-ant-api03-...` | Anthropic API key |
+| `ANTHROPIC_MODEL` | `claude-sonnet-4-20250514` | Default model to use |
+
+---
+
 ## 3. Other MCP Servers (Currently Active)
 
 ### 3.1 Filesystem MCP
@@ -894,6 +966,7 @@ Expected: Gemini API documentation results
 ✅ **Gemini AI** (gemini) - Chat, vision, code generation
 ✅ **DeepSeek MCP** - Chat, completion, code generation
 ✅ **GitHub Copilot MCP** - Official GitHub integration (20+ tools)
+✅ **Claude Sonnet 4.6 MCP** - Advanced code generation, reasoning
 ✅ **Qwen OAuth** - Primary authentication
 ✅ **Filesystem MCP** - File operations
 ✅ **GitHub MCP** - Git repository management
@@ -909,11 +982,11 @@ Expected: Gemini API documentation results
 ⚠️ **OpenClaw MCP** - Needs gateway setup + token (FREE with Ollama)
 
 ### Total MCP Servers
-- **Configured in settings.json**: 14 servers
-- **Active**: 13 servers
+- **Configured in settings.json**: 15 servers
+- **Active**: 14 servers
 - **Pending**: 1 server (OpenClaw)
 
 ---
 
-**Last Updated**: April 12, 2026
-**Status**: DeepSeek + GitHub Copilot MCP Configured — 1 MCP server pending (OpenClaw)
+**Last Updated**: April 13, 2026
+**Status**: DeepSeek + GitHub Copilot + Claude Sonnet 4.6 Active — 1 server pending (OpenClaw)

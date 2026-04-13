@@ -7,17 +7,18 @@
 | 1 | Gemini Audit | HTTP | ✅ Active | API docs search |
 | 2 | Gemini AI | NPX | ✅ Active | gemini-2.0-flash |
 | 3 | DeepSeek | NPX | ✅ Active | sk-9b30ee1c... |
-| 4 | GitHub Copilot MCP | NPX | ✅ Active | raproos authenticated |
-| 5 | OpenClaw | NPX | ⚠️ Needs Setup | Gateway + token |
-| 6 | Filesystem | Built-in | ✅ Active | File operations |
-| 7 | GitHub | Built-in | ✅ Active | Repo management |
-| 8 | Git | Built-in | ✅ Active | Git commands |
-| 9 | Firecrawl | Built-in | ✅ Active | Web scraping |
-| 10 | Playwright | Built-in | ✅ Active | Browser automation |
-| 11 | Puppeteer | Built-in | ✅ Active | Browser automation |
-| 12 | Memory | Built-in | ✅ Active | Knowledge graph |
-| 13 | Context7 | Built-in | ✅ Active | Library docs |
-| 14 | Seq. Thinking | Built-in | ✅ Active | Chain of thought |
+| 4 | GitHub Copilot MCP | NPX | ✅ Active | ghp_15TzzP... |
+| 5 | Claude Sonnet 4.6 | NPX | ✅ Active | sk-ant-api03-Sg_y... |
+| 6 | OpenClaw | NPX | ⚠️ Needs Setup | Gateway + token |
+| 7 | Filesystem | Built-in | ✅ Active | File operations |
+| 8 | GitHub | Built-in | ✅ Active | Repo management |
+| 9 | Git | Built-in | ✅ Active | Git commands |
+| 10 | Firecrawl | Built-in | ✅ Active | Web scraping |
+| 11 | Playwright | Built-in | ✅ Active | Browser automation |
+| 12 | Puppeteer | Built-in | ✅ Active | Browser automation |
+| 13 | Memory | Built-in | ✅ Active | Knowledge graph |
+| 14 | Context7 | Built-in | ✅ Active | Library docs |
+| 15 | Seq. Thinking | Built-in | ✅ Active | Chain of thought |
 
 ---
 
@@ -127,6 +128,24 @@ openclaw dashboard                 # Opens web UI
 }
 ```
 
+### Claude Sonnet 4.6 (5 minutes — Needs Anthropic API Key)
+
+**Get API Key:** https://console.anthropic.com/ → API Keys → Create Key
+
+**Update Settings:**
+```json
+"claude": {
+  "command": "npx",
+  "args": ["-y", "@anthropic/mcp-server"],
+  "env": {
+    "ANTHROPIC_API_KEY": "sk-ant-api03-your-key",
+    "ANTHROPIC_MODEL": "claude-sonnet-4-20250514"
+  }
+}
+```
+
+**Models:** Sonnet 4.6 (recommended) | Opus 4.6 (max capability) | Haiku 4.5 (fast)
+
 ---
 
 ## Configuration File Locations
@@ -145,6 +164,7 @@ openclaw dashboard                 # Opens web UI
 **API Keys Hardcoded in settings.json**
 - Gemini: `AIzaSyAFRvB6slX4ycpI59Wjl2q3FlhigxgRaN0`
 - DeepSeek: `sk-9b30ee1cab9e4680b654abff1c73fdcd`
+- Claude: `sk-ant-api03-Sg_yFmgcFnrsqZCQ0d5uRxpKYSYhsukdNw7DZeNv...`
 - Risk: Medium (visible in plain text)
 - Action: Consider moving to environment variables
 
@@ -154,5 +174,5 @@ openclaw dashboard                 # Opens web UI
 
 ---
 
-**Updated**: April 12, 2026  
-**Total MCP Servers**: 14 (12 active, 1 needs setup, 1 documented but not added)
+**Updated**: April 13, 2026  
+**Total MCP Servers**: 15 (14 active, 1 needs setup)

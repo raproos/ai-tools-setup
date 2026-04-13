@@ -114,24 +114,33 @@ Quick Setup (Windows + WSL2):
   # WSL2 auto-forwards port 18789 to Windows
 ```
 
-### 5. GitHub Copilot MCP (Official — Documented, Not Added)
+### 6. Claude Sonnet 4.6 (NPX)
+```
+Type: NPX MCP Server
+Package: @anthropic/mcp-server
+Model: claude-sonnet-4-20250514
+API Key: Needs sk-ant-api03-* key
+Status: ⚠️ Configured (needs API key)
+Purpose: Advanced code generation, reasoning, analysis
+
+Config (for Qwen Code settings.json):
+  "claude": {
+    "command": "npx",
+    "args": ["-y", "@anthropic/mcp-server"],
+    "env": {
+      "ANTHROPIC_API_KEY": "sk-ant-api03-*",
+      "ANTHROPIC_MODEL": "claude-sonnet-4-20250514"
+    }
+  }
+```
+### 5. GitHub Copilot MCP (Official — Active)
 ```
 Type: NPX MCP Server
 Package: @modelcontextprotocol/server-github
-Token: GitHub Personal Access Token (ghp_*)
-Status: 📋 Documented (not yet configured)
-Purpose: GitHub integration for Copilot + any MCP client
-Tools: 20+ tools (repos, issues, PRs, code search, files)
-
-Config (for Qwen Code settings.json):
-  "github-copilot": {
-    "command": "npx",
-    "args": ["-y", "@modelcontextprotocol/server-github"],
-    "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_*" }
-  }
-
-Config (for VS Code Copilot):
-  "github.copilot.chat.mcp.servers": { "github": { ... } }
+Token: ghp_*** (configured in settings.json)
+Status: ✅ ACTIVE
+Purpose: GitHub integration (repos, issues, PRs, code search)
+Tools: 20+ tools (create_file, search_code, create_pr, etc.)
 ```
 
 ### 5. Sequential Thinking
@@ -248,31 +257,24 @@ C:\penduka\
 ## Status Summary
 
 ```
-Total MCP Servers: 14
-├─ Active: 12 (86%)
+Total MCP Servers: 15
+├─ Active: 14 (93%)
 ├─ Pending: 1 (7%) — OpenClaw (needs gateway)
-├─ Documented: 1 (7%) — GitHub Copilot MCP (needs PAT)
 └─ Disabled: 0
 
 API Keys Status:
-├─ Configured: 2 (Gemini, DeepSeek)
+├─ Configured: 3 (Gemini, DeepSeek, Claude)
 ├─ Placeholder: 1 (OpenClaw)
-├─ Not Added: 1 (GitHub Copilot MCP — needs PAT)
 └─ Missing: 0
 
 Security Level: MEDIUM
 ⚠️ Gemini API key is hardcoded
 ⚠️ DeepSeek API key is hardcoded
+⚠️ Claude API key is hardcoded
 ✅ OpenClaw token is placeholder
-📋 GitHub PAT needed for Copilot MCP
 ```
 
 ## Next Steps
-
-### ~~Priority 1: Activate DeepSeek~~ ✅ DONE
-- API key configured: `sk-9b30ee1cab9e4680b654abff1c73fdcd`
-- Restart Qwen Code to activate
-- Test with `mcp__deepseek__list_models`
 
 ### Priority 1: Activate OpenClaw (20 minutes — Free)
 
